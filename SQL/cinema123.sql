@@ -11,32 +11,16 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+CREATE DATABASE IF NOT EXISTS `cinema123`;
+USE `cinema123`;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Banco de dados: `cinema123`
---
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `atorarthur`
---
-
-CREATE TABLE `atorarthur` (
-  `idatorarthur` int(10) UNSIGNED NOT NULL,
+-- Tabela: atorlucas
+CREATE TABLE `atorlucas` (
+  `idatorlucas` int(10) UNSIGNED NOT NULL,
   `Nome` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Extraindo dados da tabela `atorarthur`
---
-
-INSERT INTO `atorarthur` (`idatorarthur`, `Nome`) VALUES
+INSERT INTO `atorlucas` (`idatorlucas`, `Nome`) VALUES
 (1, 'Tom Cruise'),
 (2, 'Brad Pitt'),
 (3, 'Angelina Jolie'),
@@ -44,122 +28,72 @@ INSERT INTO `atorarthur` (`idatorarthur`, `Nome`) VALUES
 (5, 'Wagner Moura'),
 (6, 'Jack Black');
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `cinemaarthur`
---
-
-CREATE TABLE `cinemaarthur` (
-  `idcinemaarthur` int(10) UNSIGNED NOT NULL,
+-- Tabela: cinemalucas
+CREATE TABLE `cinemalucas` (
+  `idcinemalucas` int(10) UNSIGNED NOT NULL,
   `Nome` varchar(50) DEFAULT NULL,
   `Cidade` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Extraindo dados da tabela `cinemaarthur`
---
-
-INSERT INTO `cinemaarthur` (`idcinemaarthur`, `Nome`, `Cidade`) VALUES
+INSERT INTO `cinemalucas` (`idcinemalucas`, `Nome`, `Cidade`) VALUES
 (1, 'Shopping Pátio Chapecó', 'Chapecó'),
 (2, 'Shopping Curitiba', 'Curitiba');
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `filmearthur`
---
-
-CREATE TABLE `filmearthur` (
-  `idfilmearthur` int(10) UNSIGNED NOT NULL,
-  `generoarthur_idgeneroarthur` int(10) UNSIGNED NOT NULL,
-  `Nome` varchar(50) DEFAULT NULL,
-  `Duracao` time DEFAULT NULL,
-  `CI` int(10) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Extraindo dados da tabela `filmearthur`
---
-
-INSERT INTO `filmearthur` (`idfilmearthur`, `generoarthur_idgeneroarthur`, `Nome`, `Duracao`, `CI`) VALUES
-(1, 1, 'Missão Impossível', '01:30:00', 15),
-(2, 2, 'Farrofeiros', '01:45:00', 12),
-(3, 3, 'Minecraft: O filme', '02:00:59', 10);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `filmearthur_has_atorarthur`
---
-
-CREATE TABLE `filmearthur_has_atorarthur` (
-  `atorarthur_idatorarthur` int(10) UNSIGNED NOT NULL,
-  `filmearthur_idfilmearthur` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Extraindo dados da tabela `filmearthur_has_atorarthur`
---
-
-INSERT INTO `filmearthur_has_atorarthur` (`atorarthur_idatorarthur`, `filmearthur_idfilmearthur`) VALUES
-(5, 3),
-(6, 3);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `generoarthur`
---
-
-CREATE TABLE `generoarthur` (
-  `idgeneroarthur` int(10) UNSIGNED NOT NULL,
+-- Tabela: generolucas
+CREATE TABLE `generolucas` (
+  `idgenerolucas` int(10) UNSIGNED NOT NULL,
   `Nome` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Extraindo dados da tabela `generoarthur`
---
-
-INSERT INTO `generoarthur` (`idgeneroarthur`, `Nome`) VALUES
+INSERT INTO `generolucas` (`idgenerolucas`, `Nome`) VALUES
 (1, 'Aventura'),
 (2, 'Comédia'),
 (3, 'Romance'),
 (4, 'Terror');
 
--- --------------------------------------------------------
+-- Tabela: filmelucas
+CREATE TABLE `filmelucas` (
+  `idfilmelucas` int(10) UNSIGNED NOT NULL,
+  `generolucas_idgenerolucas` int(10) UNSIGNED NOT NULL,
+  `Nome` varchar(50) DEFAULT NULL,
+  `Duracao` time DEFAULT NULL,
+  `CI` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Estrutura da tabela `salaarthur`
---
+INSERT INTO `filmelucas` (`idfilmelucas`, `generolucas_idgenerolucas`, `Nome`, `Duracao`, `CI`) VALUES
+(1, 1, 'Missão Impossível', '01:30:00', 15),
+(2, 2, 'Farrofeiros', '01:45:00', 12),
+(3, 3, 'Minecraft: O filme', '02:00:59', 10);
 
-CREATE TABLE `salaarthur` (
-  `idsalaarthur` int(10) UNSIGNED NOT NULL,
-  `cinemaarthur_idcinemaarthur` int(10) UNSIGNED NOT NULL,
+-- Tabela: filmelucas_has_atorlucas
+CREATE TABLE `filmelucas_has_atorlucas` (
+  `atorlucas_idatorlucas` int(10) UNSIGNED NOT NULL,
+  `filmelucas_idfilmelucas` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `filmelucas_has_atorlucas` (`atorlucas_idatorlucas`, `filmelucas_idfilmelucas`) VALUES
+(5, 3),
+(6, 3);
+
+-- Tabela: salalucas
+CREATE TABLE `salalucas` (
+  `idsalalucas` int(10) UNSIGNED NOT NULL,
+  `cinemalucas_idcinemalucas` int(10) UNSIGNED NOT NULL,
   `Nome` varchar(35) DEFAULT NULL,
   `Capacidade` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Extraindo dados da tabela `salaarthur`
---
-
-INSERT INTO `salaarthur` (`idsalaarthur`, `cinemaarthur_idcinemaarthur`, `Nome`, `Capacidade`) VALUES
+INSERT INTO `salalucas` (`idsalalucas`, `cinemalucas_idcinemalucas`, `Nome`, `Capacidade`) VALUES
 (1, 1, 'Sala A1', 200),
 (2, 1, 'Sala A2', 225),
 (3, 2, 'Sala C1', 300),
 (4, 2, 'Sala C2', 350);
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `sessao`
---
-
+-- Tabela: sessao
 CREATE TABLE `sessao` (
   `idsessao` int(10) UNSIGNED NOT NULL,
-  `salaarthur_idsalaarthur` int(10) UNSIGNED NOT NULL,
-  `filmearthur_idfilmearthur` int(10) UNSIGNED NOT NULL,
+  `salalucas_idsalalucas` int(10) UNSIGNED NOT NULL,
+  `filmelucas_idfilmelucas` int(10) UNSIGNED NOT NULL,
   `Nome` varchar(50) DEFAULT NULL,
   `DataSessao` date DEFAULT NULL,
   `HoraSessao` time DEFAULT NULL,
@@ -169,136 +103,39 @@ CREATE TABLE `sessao` (
   `Libras` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Extraindo dados da tabela `sessao`
---
-
-INSERT INTO `sessao` (`idsessao`, `salaarthur_idsalaarthur`, `filmearthur_idfilmearthur`, `Nome`, `DataSessao`, `HoraSessao`, `Valor`, `Dublado`, `Legendado`, `Libras`) VALUES
+INSERT INTO `sessao` (`idsessao`, `salalucas_idsalalucas`, `filmelucas_idfilmelucas`, `Nome`, `DataSessao`, `HoraSessao`, `Valor`, `Dublado`, `Legendado`, `Libras`) VALUES
 (1, 1, 3, 'Sessão Minecraft', '2025-06-02', '21:00:00', 35, 1, 0, 0);
 
---
--- Índices para tabelas despejadas
---
+-- Índices e chaves primárias
+ALTER TABLE `atorlucas` ADD PRIMARY KEY (`idatorlucas`);
+ALTER TABLE `cinemalucas` ADD PRIMARY KEY (`idcinemalucas`);
+ALTER TABLE `generolucas` ADD PRIMARY KEY (`idgenerolucas`);
+ALTER TABLE `filmelucas` ADD PRIMARY KEY (`idfilmelucas`), ADD KEY `filmelucas_FK_genero` (`generolucas_idgenerolucas`);
+ALTER TABLE `filmelucas_has_atorlucas` ADD PRIMARY KEY (`atorlucas_idatorlucas`, `filmelucas_idfilmelucas`), ADD KEY `FK_film` (`filmelucas_idfilmelucas`);
+ALTER TABLE `salalucas` ADD PRIMARY KEY (`idsalalucas`), ADD KEY `FK_sala_cinema` (`cinemalucas_idcinemalucas`);
+ALTER TABLE `sessao` ADD PRIMARY KEY (`idsessao`), ADD KEY `FK_sessao_sala` (`salalucas_idsalalucas`), ADD KEY `FK_sessao_filme` (`filmelucas_idfilmelucas`);
 
---
--- Índices para tabela `atorarthur`
---
-ALTER TABLE `atorarthur`
-  ADD PRIMARY KEY (`idatorarthur`);
+-- AUTO_INCREMENT
+ALTER TABLE `atorlucas` MODIFY `idatorlucas` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `cinemalucas` MODIFY `idcinemalucas` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `generolucas` MODIFY `idgenerolucas` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `filmelucas` MODIFY `idfilmelucas` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `salalucas` MODIFY `idsalalucas` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `sessao` MODIFY `idsessao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
---
--- Índices para tabela `cinemaarthur`
---
-ALTER TABLE `cinemaarthur`
-  ADD PRIMARY KEY (`idcinemaarthur`);
+-- FOREIGN KEYS
+ALTER TABLE `filmelucas`
+  ADD CONSTRAINT `filmelucas_fk_genero` FOREIGN KEY (`generolucas_idgenerolucas`) REFERENCES `generolucas` (`idgenerolucas`);
 
---
--- Índices para tabela `filmearthur`
---
-ALTER TABLE `filmearthur`
-  ADD PRIMARY KEY (`idfilmearthur`),
-  ADD KEY `filme_arthur_FKIndex1` (`generoarthur_idgeneroarthur`);
+ALTER TABLE `filmelucas_has_atorlucas`
+  ADD CONSTRAINT `fk_film_has_ator_film` FOREIGN KEY (`filmelucas_idfilmelucas`) REFERENCES `filmelucas` (`idfilmelucas`),
+  ADD CONSTRAINT `fk_film_has_ator_ator` FOREIGN KEY (`atorlucas_idatorlucas`) REFERENCES `atorlucas` (`idatorlucas`);
 
---
--- Índices para tabela `filmearthur_has_atorarthur`
---
-ALTER TABLE `filmearthur_has_atorarthur`
-  ADD PRIMARY KEY (`atorarthur_idatorarthur`,`filmearthur_idfilmearthur`),
-  ADD KEY `filme_arthur_has_ator_arthur_FKIndex1` (`filmearthur_idfilmearthur`),
-  ADD KEY `filme_arthur_has_ator_arthur_FKIndex2` (`atorarthur_idatorarthur`);
+ALTER TABLE `salalucas`
+  ADD CONSTRAINT `fk_sala_cinema` FOREIGN KEY (`cinemalucas_idcinemalucas`) REFERENCES `cinemalucas` (`idcinemalucas`);
 
---
--- Índices para tabela `generoarthur`
---
-ALTER TABLE `generoarthur`
-  ADD PRIMARY KEY (`idgeneroarthur`);
-
---
--- Índices para tabela `salaarthur`
---
-ALTER TABLE `salaarthur`
-  ADD PRIMARY KEY (`idsalaarthur`),
-  ADD KEY `sala_arthur_FKIndex1` (`cinemaarthur_idcinemaarthur`);
-
---
--- Índices para tabela `sessao`
---
 ALTER TABLE `sessao`
-  ADD PRIMARY KEY (`idsessao`),
-  ADD KEY `sessao_FKIndex1` (`salaarthur_idsalaarthur`),
-  ADD KEY `sessao_FKIndex2` (`filmearthur_idfilmearthur`);
+  ADD CONSTRAINT `fk_sessao_sala` FOREIGN KEY (`salalucas_idsalalucas`) REFERENCES `salalucas` (`idsalalucas`),
+  ADD CONSTRAINT `fk_sessao_filme` FOREIGN KEY (`filmelucas_idfilmelucas`) REFERENCES `filmelucas` (`idfilmelucas`);
 
---
--- AUTO_INCREMENT de tabelas despejadas
---
-
---
--- AUTO_INCREMENT de tabela `atorarthur`
---
-ALTER TABLE `atorarthur`
-  MODIFY `idatorarthur` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de tabela `cinemaarthur`
---
-ALTER TABLE `cinemaarthur`
-  MODIFY `idcinemaarthur` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de tabela `filmearthur`
---
-ALTER TABLE `filmearthur`
-  MODIFY `idfilmearthur` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de tabela `generoarthur`
---
-ALTER TABLE `generoarthur`
-  MODIFY `idgeneroarthur` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de tabela `salaarthur`
---
-ALTER TABLE `salaarthur`
-  MODIFY `idsalaarthur` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de tabela `sessao`
---
-ALTER TABLE `sessao`
-  MODIFY `idsessao` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- Restrições para despejos de tabelas
---
-
---
--- Limitadores para a tabela `filmearthur`
---
-ALTER TABLE `filmearthur`
-  ADD CONSTRAINT `filmearthur_ibfk_1` FOREIGN KEY (`generoarthur_idgeneroarthur`) REFERENCES `generoarthur` (`idgeneroarthur`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `filmearthur_has_atorarthur`
---
-ALTER TABLE `filmearthur_has_atorarthur`
-  ADD CONSTRAINT `filmearthur_has_atorarthur_ibfk_1` FOREIGN KEY (`filmearthur_idfilmearthur`) REFERENCES `filmearthur` (`idfilmearthur`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `filmearthur_has_atorarthur_ibfk_2` FOREIGN KEY (`atorarthur_idatorarthur`) REFERENCES `atorarthur` (`idatorarthur`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `salaarthur`
---
-ALTER TABLE `salaarthur`
-  ADD CONSTRAINT `salaarthur_ibfk_1` FOREIGN KEY (`cinemaarthur_idcinemaarthur`) REFERENCES `cinemaarthur` (`idcinemaarthur`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `sessao`
---
-ALTER TABLE `sessao`
-  ADD CONSTRAINT `sessao_ibfk_1` FOREIGN KEY (`salaarthur_idsalaarthur`) REFERENCES `salaarthur` (`idsalaarthur`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `sessao_ibfk_2` FOREIGN KEY (`filmearthur_idfilmearthur`) REFERENCES `filmearthur` (`idfilmearthur`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -29,16 +29,16 @@ required>
 <?php
 if (!empty($buscafilme)) {
 $sql = "SELECT 
-filmearthur.idfilmearthur as 'idfilmearthur',
-filmearthur.generoarthur_idgeneroarthur as 'idgenero',
-generoarthur.nome as 'genero',
-filmearthur.duracao as 'duracao',
-filmearthur.Nome as 'nomefilme',
-filmearthur.CI as 'ci'
-from filmearthur,generoarthur
+filmelucas.idfilmelucas as 'idfilmelucas',
+filmelucas.generolucas_idgenerolucas as 'idgenero',
+generolucas.nome as 'genero',
+filmelucas.duracao as 'duracao',
+filmelucas.Nome as 'nomefilme',
+filmelucas.CI as 'ci'
+from filmelucas,generolucas
 
-where filmearthur.Generoarthur_idgeneroarthur=Generoarthur.idgeneroarthur
-and filmearthur.Nome LIKE :nomefilme 
+where filmelucas.Generolucas_idgenerolucas=Generolucas.idgenerolucas
+and filmelucas.Nome LIKE :nomefilme 
 ";
 
  $stmt = $conn->prepare($sql);
@@ -48,7 +48,7 @@ and filmearthur.Nome LIKE :nomefilme
  $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
  if ($data) {
  foreach($data as $row) {
-    echo'<tr><td>'.($row['idfilmearthur']).'</td>';
+    echo'<tr><td>'.($row['idfilmelucas']).'</td>';
     echo'<td>'.($row['idgenero']).'</td>';
     echo'<td>'.($row['genero']).'</td>';
     echo'<td>'.($row['nomefilme']).'</td>';

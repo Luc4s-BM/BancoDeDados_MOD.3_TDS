@@ -16,7 +16,7 @@ echo'
 try {
  $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- $sql='SELECT filmearthur.idfilmearthur, filmearthur.nome, generoarthur.nome, filmearthur.duracao, filmearthur.ci FROM filmearthur, generoarthur WHERE filmearthur.generoarthur_idgeneroarthur=generoarthur.idgeneroarthur ';
+ $sql='SELECT filmelucas.idfilmelucas, filmelucas.nome, generolucas.nome, filmelucas.duracao, filmelucas.ci FROM filmelucas, generolucas WHERE filmelucas.generolucas_idgenerolucas=generolucas.idgenerolucas ';
  $data = $conn->query($sql);
  foreach($data as $row)
  {

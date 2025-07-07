@@ -13,7 +13,7 @@ echo'
 try {
  $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- $sql='SELECT generoarthur.idgeneroarthur, generoarthur.nome FROM generoarthur';
+ $sql='SELECT generolucas.idgenerolucas, generolucas.nome FROM generolucas';
  $data = $conn->query($sql);
  foreach($data as $row)
  {

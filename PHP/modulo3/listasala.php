@@ -18,13 +18,13 @@ echo '
 try {
  $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- $sql='SELECT salaarthur.idsalaarthur,
- salaarthur.nome,
- salaarthur.capacidade,
- cinemaarthur.nome,
- cinemaarthur.cidade
- FROM cinemaarthur, salaarthur
- WHERE salaarthur.cinemaarthur_idcinemaarthur=cinemaarthur.idcinemaarthur ';
+ $sql='SELECT salalucas.idsalalucas,
+ salalucas.nome,
+ salalucas.capacidade,
+ cinemalucas.nome,
+ cinemalucas.cidade
+ FROM cinemalucas, salalucas
+ WHERE salalucas.cinemalucas_idcinemalucas=cinemalucas.idcinemalucas ';
  $data = $conn->query($sql);
  foreach($data as $row) {
     echo'<td>'.($row[0]).'</td>';

@@ -3,7 +3,7 @@
 include 'conectabanco.php';
 
 // Consulta para preencher o combobox com as salas
-$stmt = $conn->query("SELECT idsalaarthur, Nome FROM salaarthur");
+$stmt = $conn->query("SELECT idsalalucas, Nome FROM salalucas");
 $salas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Verifica o envio do formulário
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sala'])) {
     <select name="sala" id="sala">
         <option value="">-- Selecione --</option>
         <?php foreach ($salas as $sala): ?>
-            <option value="<?= $sala['idsalaarthur'] ?>" <?= $sala['idsalaarthur'] == $selecionado ? 'selected' : '' ?>>
+            <option value="<?= $sala['idsalalucas'] ?>" <?= $sala['idsalalucas'] == $selecionado ? 'selected' : '' ?>>
                 <?= htmlspecialchars($sala['Nome']) ?>
             </option>
         <?php endforeach; ?>
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sala'])) {
     <p>Você selecionou a Sala ID: <strong><?= htmlspecialchars($selecionado) ?></strong></p>
 
 <?php
-$sql = "SELECT * FROM sessao WHERE salaarthur_idsalaarthur = :idsala";
+$sql = "SELECT * FROM sessao WHERE salalucas_idsalalucas = :idsala";
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':idsala', $selecionado);
 $stmt->execute();
@@ -48,7 +48,7 @@ if ($resultados):
         </tr>
         <?php foreach ($resultados as $row): ?>
             <tr>
-                <td><?= htmlspecialchars($row['idfilmearthur']) ?></td>
+                <td><?= htmlspecialchars($row['idfilmelucas']) ?></td>
                 <td><?= htmlspecialchars($row['Nome']) ?></td>
                 <td><?= htmlspecialchars($row['Duracao']) ?></td>
                 <td><?= htmlspecialchars($row['CI']) ?></td>

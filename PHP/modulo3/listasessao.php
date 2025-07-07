@@ -23,17 +23,17 @@ try {
  $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
  $sql=' SELECT sessao.idsessao,
-sessao.filmearthur_idfilmearthur,
-filmearthur.nome,
-sessao.salaarthur_idsalaarthur,
-cinemaarthur.cidade,
+sessao.filmelucas_idfilmelucas,
+filmelucas.nome,
+sessao.salalucas_idsalalucas,
+cinemalucas.cidade,
 sessao.nome,
 sessao.datasessao,
 sessao.HoraSessao
-from sessao, salaarthur, filmearthur,cinemaarthur
-where sessao.filmearthur_idfilmearthur = filmearthur.idfilmearthur
-and sessao.salaarthur_idsalaarthur = salaarthur.idsalaarthur
-and salaarthur.cinemaarthur_idcinemaarthur = cinemaarthur.idcinemaarthur';
+from sessao, salalucas, filmelucas,cinemalucas
+where sessao.filmelucas_idfilmelucas = filmelucas.idfilmelucas
+and sessao.salalucas_idsalalucas = salalucas.idsalalucas
+and salalucas.cinemalucas_idcinemalucas = cinemalucas.idcinemalucas';
  $data = $conn->query($sql);
  foreach($data as $row) {
 echo'<tr><td>'.($row[0]).'</td>';

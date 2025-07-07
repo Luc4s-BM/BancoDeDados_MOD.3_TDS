@@ -3,7 +3,7 @@
 include 'conectabanco.php';
 
 // Consulta para preencher o combobox
-$stmt = $conn->query("SELECT idgeneroarthur, Nome FROM generoarthur");
+$stmt = $conn->query("SELECT idgenerolucas, Nome FROM generolucas");
 $generos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Verifica o envio do formulário
@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['genero'])) {
     <select name="genero" id="genero">
         <option value="">-- Selecione --</option>
         <?php foreach ($generos as $genero): ?>
-            <option value="<?= $genero['idgeneroarthur'] ?>" <?= $genero['idgeneroarthur'] == $selecionado ? 'selected' : '' ?>>
+            <option value="<?= $genero['idgenerolucas'] ?>" <?= $genero['idgenerolucas'] == $selecionado ? 'selected' : '' ?>>
                 <?= htmlspecialchars($genero['Nome']) ?>
             </option>
         <?php endforeach; ?>
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['genero'])) {
     <p>Você selecionou Gênero ID: <strong><?= htmlspecialchars($selecionado) ?></strong></p>
 
 <?php
-$sql = "SELECT * FROM filmearthur WHERE generoarthur_idgeneroarthur = :idgenero";
+$sql = "SELECT * FROM filmelucas WHERE generolucas_idgenerolucas = :idgenero";
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':idgenero', $selecionado);
 $stmt->execute();
@@ -48,7 +48,7 @@ if ($resultados):
         </tr>
         <?php foreach ($resultados as $row): ?>
             <tr>
-                <td><?= htmlspecialchars($row['idfilmearthur']) ?></td>
+                <td><?= htmlspecialchars($row['idfilmelucas']) ?></td>
                 <td><?= htmlspecialchars($row['Nome']) ?></td>
                 <td><?= htmlspecialchars($row['Duracao']) ?></td>
                 <td><?= htmlspecialchars($row['CI']) ?></td>
