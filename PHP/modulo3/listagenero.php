@@ -2,7 +2,7 @@
 include 'conectabanco.php';
 echo'
 <html>
-<h2>Listagem de Filmes</h2>
+<h2>Listagem de Gêneros</h2>
 <table border=2>
     <tr aling="center">
         <th>ID Gênero</th>
