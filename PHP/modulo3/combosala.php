@@ -1,61 +1,60 @@
+
 <?php
-// Conexão PDO
+// ConexÃ£o PDO
 include 'conectabanco.php';
 
-// Consulta para preencher o combobox com as salas
-$stmt = $conn->query("SELECT idsalalucas, Nome FROM salalucas");
-$salas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Consulta para preencher o combobox
+$stmt = $conn->query("SELECT idcinemalucas, Nome FROM cinemalucas");
+$generos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Verifica o envio do formulário
+// Verifica o envio do formulÃ¡rio
 $selecionado = '';
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sala'])) {
-    $selecionado = $_POST['sala'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['cinema'])) {
+    $selecionado = $_POST['cinema'];
 }
 ?>
 
+<!-- FormulÃ¡rio - magica para o botão  -->
 <meta charset="utf-8">
 <form method="post" action="">
-    <label for="sala">Escolha uma Sala:</label>
-    <select name="sala" id="sala">
+    <label for="categoria">Escolha um GÃªnero:</label>
+    <select name="cinema" id="cinema">
         <option value="">-- Selecione --</option>
-        <?php foreach ($salas as $sala): ?>
-            <option value="<?= $sala['idsalalucas'] ?>" <?= $sala['idsalalucas'] == $selecionado ? 'selected' : '' ?>>
-                <?= htmlspecialchars($sala['Nome']) ?>
+        <?php foreach ($generos as $cinema): ?>
+            <option value="<?= $cinema['idcinemalucas'] ?>" <?= $cinema['idcinemalucas'] == $selecionado ? 'selected' : '' ?>>
+                <?= htmlspecialchars($cinema['Nome']) ?>
             </option>
         <?php endforeach; ?>
     </select>
     <button type="submit">Enviar</button>
 </form>
 
-<?php if ($selecionado): ?>
-    <p>Você selecionou a Sala ID: <strong><?= htmlspecialchars($selecionado) ?></strong></p>
+<php if ($selecionado): ?>
+    <p>VocÃª selecionou GÃªnero ID: <strong><?= htmlspecialchars($selecionado) ?></strong></p>
 
-<?php
-$sql = "SELECT * FROM sessao WHERE salalucas_idsalalucas = :idsala";
-$stmt = $conn->prepare($sql);
-$stmt->bindParam(':idsala', $selecionado);
-$stmt->execute();
-$resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-if ($resultados):
-?>
-    <table border="1">
+    <table border =1>
         <tr>
-            <th>ID Filme</th>
-            <th>Nome Sessão</th>
-            <th>Duração</th>
-            <th>Classificação Indicativa</th>
+            <th>ID Sala</th>
+            <th>Nome</th>
+            <th>Capacidade</th>
         </tr>
-        <?php foreach ($resultados as $row): ?>
-            <tr>
-                <td><?= htmlspecialchars($row['idfilmelucas']) ?></td>
-                <td><?= htmlspecialchars($row['Nome']) ?></td>
-                <td><?= htmlspecialchars($row['Duracao']) ?></td>
-                <td><?= htmlspecialchars($row['CI']) ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-<?php else: ?>
-    <p>Nenhum filme está passando nesta sala.</p>
-<?php endif; ?>
-<?php endif; ?>
+    
+<?php
+
+$sql = "SELECT * FROM salalucas WHERE cinemalucas_idcinemalucas =:idcinemalucas";
+  if ($selecionado) {
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':idcinemalucas', $selecionado);
+        $stmt->execute();
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+         echo '<h2>Resultados</h2><ul>';
+            foreach ($resultados as $row) {
+                echo'<tr> <td>'.($row['idsalalucas']).'</td>';
+                echo'<td>'.($row['Nome']).'</td>';
+                echo'<td>'.($row['Capacidade']).'</td></tr>';
+            }echo'</table>';
+        } else {
+            echo "<p>Nenhum resultado encontrado.</p>";
+        }
+    
+ endif; ?>
